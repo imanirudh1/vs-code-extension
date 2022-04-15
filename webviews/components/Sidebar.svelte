@@ -1,8 +1,28 @@
-<script lang="ts"></script>
+<script lang="ts">
+    let todos:Array<{text:string,completed:boolean}>=[]
+    let text=""
+</script>
 <style>
-    div{
-        color: aqua;
+    li{
+        cursor: pointer;
     }
+.completed{
+    text-decoration:line-through;
+}
 </style>
 
-<div>Hello AB !!!!</div>
+<form 
+    on:submit|preventDefault={()=>{
+    todos=[{text,completed:false},...todos]
+    text=''
+    }}>
+    <input type="text" bind:value={text}>
+</form>
+
+<ul>
+    {#each todos as todo }
+        <li class:completed={todo.completed} on:click={()=>{
+            todo.completed=!todo.completed
+        }}>{todo.text}</li>
+    {/each}
+</ul>
