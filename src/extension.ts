@@ -2,16 +2,16 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { HelloWorldPanel } from './HelloWorldPanel';
+import { SidebarProvider } from './SidebarProvider';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "vstodo" is now active!');
 
-
+	const sidebarProvider = new SidebarProvider(context.extensionUri);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider("vstodo-sidebar", sidebarProvider)
+	)
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
@@ -25,17 +25,17 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('vstodo.refresh', () => {
 		HelloWorldPanel.kill()
-		HelloWorldPanel.createOrShow(context.extensionUri); 
+		HelloWorldPanel.createOrShow(context.extensionUri);
 		setTimeout(() => {
 			vscode.commands.executeCommand("workbench.action.webview.openDeveloperTools")
-		},100)
+		}, 100)
 	}))
-		
+
 	context.subscriptions.push(vscode.commands.registerCommand('vstodo.askQustion', async () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		let answer =await vscode.window.showInformationMessage('How are You Anirudh?', 'Good', 'Bad');
-		
+		let answer = await vscode.window.showInformationMessage('How are You Anirudh?', 'Good', 'Bad');
+
 		if (answer === 'Good') {
 			vscode.window.showInformationMessage('Anirudh is Good');
 		} else {
@@ -46,4 +46,4 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

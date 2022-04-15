@@ -10,12 +10,33 @@
 		"Other"
 	],
 	"activationEvents": [
+		"onView:vstodo-sidebar",
 		"onCommand:vstodo.helloWorld",
 		"onCommand:vstodo.askQustion",
 		"onCommand:vstodo.refresh"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "vstodo-sidebar-view",
+					"title": "VSTodo",
+					"icon": "media/checklist.svg"
+				}
+			]
+		},
+		"views": {
+			"vstodo-sidebar-view": [
+				{
+					"type": "webview",
+					"id": "vstodo-sidebar",
+					"name": "VSTodo",
+					"icon": "media/checklist.svg",
+					"contextualTitle": "VSTodo"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "vstodo.helloWorld",
@@ -62,8 +83,8 @@
 		"eslint-import-resolver-typescript": "^2.7.1",
 		"glob": "^7.2.0",
 		"mocha": "^9.2.2",
-		"rollup": "^2.70.2",
-		"rollup-plugin-svelte": "^7.1.0",
+		"rollup": "^2.3.4",
+		"rollup-plugin-svelte": "^6.0.0",
 		"rollup-plugin-terser": "^7.0.2",
 		"svelte": "^3.47.0",
 		"svelte-check": "^2.7.0",
