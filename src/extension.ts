@@ -23,12 +23,16 @@ export function activate(context: vscode.ExtensionContext) {
 		HelloWorldPanel.createOrShow(context.extensionUri);
 	}))
 
-	context.subscriptions.push(vscode.commands.registerCommand('vstodo.refresh', () => {
-		HelloWorldPanel.kill()
-		HelloWorldPanel.createOrShow(context.extensionUri);
-		setTimeout(() => {
-			vscode.commands.executeCommand("workbench.action.webview.openDeveloperTools")
-		}, 100)
+	context.subscriptions.push(vscode.commands.registerCommand('vstodo.refresh', async () => {
+		// HelloWorldPanel.kill()
+		// HelloWorldPanel.createOrShow(context.extensionUri);
+		// setTimeout(() => {
+		// 	vscode.commands.executeCommand("workbench.action.webview.openDeveloperTools")
+		// }, 100)
+		await vscode.commands.executeCommand("workbench.action.closeSidebar");
+		await vscode.commands.executeCommand(
+		  "workbench.view.extension.vstodo-sidebar-view"
+		);
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand('vstodo.askQustion', async () => {
