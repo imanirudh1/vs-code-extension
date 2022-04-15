@@ -123,24 +123,11 @@ export class HelloWorldPanel {
   }
 
   private _getHtmlForWebview(webview: vscode.Webview) {
-    // // // And the uri we use to load this script in the webview
-    // const scriptUri = webview.asWebviewUri(
-    //   vscode.Uri.joinPath(this._extensionUri, "out", "compiled/swiper.js")
-    // );
-
-    // Local path to css styles
-    // const styleResetPath = vscode.Uri.joinPath(
-    //   this._extensionUri,
-    //   "media",
-    //   "reset.css"
-    // );
-    // const stylesPathMainPath = vscode.Uri.joinPath(
-    //   this._extensionUri,
-    //   "media",
-    //   "vscode.css"
-    // );
-
-    // // Uri to load styles into webview
+    // And the uri we use to load this script in the webview
+    const scriptUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "media", "main.js")
+    );
+    // Uri to load styles into webview
     const stylesResetUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
         this._extensionUri,
@@ -155,11 +142,8 @@ export class HelloWorldPanel {
         "vscode.css"
       )
     );
-    // const cssUri = webview.asWebviewUri(
-    //   vscode.Uri.joinPath(this._extensionUri, "out", "compiled/swiper.css")
-    // );
 
-    // // Use a nonce to only allow specific scripts to be run
+    // Use a nonce to only allow specific scripts to be run
     const nonce = getNonce();
 
     return `<!DOCTYPE html>
@@ -182,8 +166,9 @@ export class HelloWorldPanel {
       <body>
       <h1>Hello Anirudh</h1>
       <input type="text" id="input" />
-      <button>Hello</button>
+      <button id="botton">Hello</button>
       </body>
+      <script src="${scriptUri}" nonce="${nonce}" />
 			</html>`;
   }
 }
