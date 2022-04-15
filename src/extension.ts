@@ -22,6 +22,14 @@ export function activate(context: vscode.ExtensionContext) {
 		// vscode.window.showInformationMessage('Hello Anirudh!!');
 		HelloWorldPanel.createOrShow(context.extensionUri);
 	}))
+
+	context.subscriptions.push(vscode.commands.registerCommand('vstodo.refresh', () => {
+		HelloWorldPanel.kill()
+		HelloWorldPanel.createOrShow(context.extensionUri); 
+		setTimeout(() => {
+			vscode.commands.executeCommand("workbench.action.webview.openDeveloperTools")
+		},100)
+	}))
 		
 	context.subscriptions.push(vscode.commands.registerCommand('vstodo.askQustion', async () => {
 		// The code you place here will be executed every time your command is executed
